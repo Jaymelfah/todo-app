@@ -30,10 +30,10 @@ const TodoContainer = () => {
   };
 
   return (
-    <div>
+    <div className="mt-6 flex flex-col justify-center items-center">
       {
       todoList.map((item) => (
-        <div key={item.id}>
+        <div key={item.id} className="flex justify-between w-11/12 border-b p-4 border-gray-300">
           <input
             type="checkbox"
             checked={item.isCompleted}
@@ -43,6 +43,7 @@ const TodoContainer = () => {
           <button
             onClick={() => handleClick(item.id)}
             type="button"
+            className="hover:text-red-500"
           >
             <BsTrash />
           </button>
@@ -52,6 +53,7 @@ const TodoContainer = () => {
       <button
         onClick={handleDelete}
         type="button"
+        className="mt-4 bg-red-500 shadow-lg shadow-cyan-500/50 w-2/6 text-xs rounded-2xl p-2 text-slate-100"
       >
         Delete All Completed
       </button>

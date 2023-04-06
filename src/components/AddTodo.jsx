@@ -21,16 +21,19 @@ const AddTodo = () => {
 
   return (
     <div>
-      <form className="form" onSubmit={handleSubmit}>
+      <form className="flex items-center" onSubmit={handleSubmit}>
         <input
-          className="input"
+          className="p-2 w-full rounded-s-xl border border-solid border-gray-300"
           name="item"
           value={item}
           type="text"
           placeholder="Add todo item"
           onChange={(e) => setItem(e.target.value)}
         />
-        <button type="submit">
+        <button
+          className="p-3 border border-solid border-gray-300 rounded-e-xl bg-lime-400"
+          type="submit"
+        >
           <BsPlusLg />
         </button>
       </form>

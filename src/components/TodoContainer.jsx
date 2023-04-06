@@ -7,6 +7,7 @@ const TodoContainer = () => {
   const todoList = useSelector((state) => state.todos);
   const dispatch = useDispatch();
 
+  // Update todo list to show items checked completed
   const updateTodo = (id) => {
     const updatedTodoList = todoList.map((item) => {
       if (item.id === id) {
@@ -20,10 +21,12 @@ const TodoContainer = () => {
     dispatch(updateTodoList(updatedTodoList));
   };
 
+  // Delete an item
   const handleClick = (id) => {
     dispatch(deleteTodo(id));
   };
 
+  // Delete all checked items
   const handleDelete = () => {
     const updatedTodoList = todoList.filter((item) => item.isCompleted === false);
     dispatch(updateTodoList(updatedTodoList));
@@ -50,6 +53,9 @@ const TodoContainer = () => {
         </div>
       ))
     }
+      {
+      todoList.length !== 0
+      && (
       <button
         onClick={handleDelete}
         type="button"
@@ -57,6 +63,8 @@ const TodoContainer = () => {
       >
         Delete All Completed
       </button>
+      )
+    }
     </div>
   );
 };

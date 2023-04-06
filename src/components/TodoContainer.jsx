@@ -1,38 +1,32 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { BsTrash } from 'react-icons/bs';
+import { deleteTodo, updateTodoList } from '../redux/todo';
 
 const TodoContainer = () => {
-  const todoList = [
-    {
-      id: 1,
-      task: 'eat grocery',
-      isCompleted: true,
-    },
-    {
-      id: 2,
-      task: 'eat grocery',
-      isCompleted: false,
-    },
+  const todoList = useSelector((state) => state.todos);
+  const dispatch = useDispatch();
 
-    {
-      id: 3,
-      task: 'eat grocery',
-      isCompleted: false,
-    },
+  const updateTodo = (id) => {
+    const updatedTodoList = todoList.map((item) => {
+      if (item.id === id) {
+        return {
+          ...item,
+          isCompleted: !item.isCompleted,
+        };
+      }
+      return item;
+    });
+    dispatch(updateTodoList(updatedTodoList));
+  };
 
-  ];
+  const handleClick = (id) => {
+    dispatch(deleteTodo(id));
+  };
 
-  const updateTodo = () => {
-    // const updatedTodoList = todoList.map((item) => {
-    //   if (item.id === id) {
-    //     return {
-    //       ...item,
-    //       isCompleted: !item.isCompleted,
-    //     };
-    //   }
-    //   return item;
-    // });
-    // dispatch(updateTodoList(updatedTodoList));
+  const handleDelete = () => {
+    const updatedTodoList = todoList.filter((item) => item.isCompleted === false);
+    dispatch(updateTodoList(updatedTodoList));
   };
 
   return (
@@ -45,11 +39,22 @@ const TodoContainer = () => {
             checked={item.isCompleted}
             onChange={() => updateTodo(item.id)}
           />
-          <span>{item.task}</span>
-          <BsTrash />
+          <span className={`${item.isCompleted ? 'completed' : 'not-completed'}`}>{item.task}</span>
+          <button
+            onClick={() => handleClick(item.id)}
+            type="button"
+          >
+            <BsTrash />
+          </button>
         </div>
       ))
     }
+      <button
+        onClick={handleDelete}
+        type="button"
+      >
+        Delete All Completed
+      </button>
     </div>
   );
 };
